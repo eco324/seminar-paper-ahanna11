@@ -1,0 +1,57 @@
+---
+title: "Brazil_data"
+author: "Abby Hanna"
+date: "3/14/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(summarytools)
+library(Hmisc)
+library(readxl)
+```
+
+
+```{r read in data }
+sudeste <- read_csv("~/Desktop/seminar-paper-ahanna11/raw_data/sudeste.csv")
+brazil_pollutantsxcl <- read_xlsx("~/Desktop/seminar-paper-ahanna11/raw_data/brazil_pollutantsxcl.xlsx")
+tubercu_data <- read_csv("~/Desktop/seminar-paper-ahanna11/raw_data/tuber_data.csv")
+```
+
+
+```{r Clean up the pollution and health data}
+clean_pollutant_data <- brazil_pollutantsxcl[complete.cases(brazil_pollutantsxcl),]
+
+clean_tubercu_data <- tubercu_data[complete.cases(tubercu_data),]
+```
+
+```{r Clean up the demographic data}
+clean_sudeste_data <- sudeste[complete.cases(sudeste),]
+```
+
+```{r write csv for new cleaned data}
+write.csv(clean_pollutant_data)
+View(clean_pollutant_data)
+```
+
+
+```{r write csv for new cleaned data.2}
+write.csv(clean_sudeste_data)
+View(clean_sudeste_data)
+
+write.csv(clean_tubercu_data)
+View(clean_tubercu_data)
+
+```
+
+
+```{r export summary tables}
+`export_summary_table(dfSummary(clean_pollutant_data))`
+
+`export_summary_table(dfSummary(clean_sudeste_data))`
+
+`export_summary_table(dfSummary(clean_tubercu_data))`
+```
+
